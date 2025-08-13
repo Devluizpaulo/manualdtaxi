@@ -1,236 +1,203 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="no-js">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>D-Táxi | Manual de Operações – Congonhas</title>
-  <meta name="description" content="Manual de Operações da D-Táxi no Aeroporto de Congonhas – versão interativa, responsiva e pronta para impressão."/>
-  <meta name="theme-color" content="#0a7d32" />
+  <meta name="description" content="Manual de Operações da D-Táxi no Aeroporto de Congonhas – versão interativa e responsiva."/>
   <meta name="author" content="D-Táxi" />
   <meta name="keywords" content="D-Táxi, Congonhas, Manual de Operações, Táxi Aeroporto, Regras Táxi" />
-  <meta property="og:title" content="D-Táxi | Manual de Operações – Congonhas" />
-  <meta property="og:description" content="Manual de Operações da D-Táxi no Aeroporto de Congonhas – versão interativa, responsiva e pronta para impressão." />
-  <meta property="og:type" content="website" />
+
+  <!-- favicon simples inline -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230a7d32' d='M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2Zm0 2.2a7.8 7.8 0 1 0 0 15.6a7.8 7.8 0 0 0 0-15.6Zm-.2 2.4c.5 0 .9.4.9.9v4.6l3.3 1.9c.43.25.58.8.33 1.22a.9.9 0 0 1-1.22.33l-3.7-2.1a1.4 1.4 0 0 1-.64-1.2V7.5c0-.5.4-.9.9-.9Z'/%3E%3C/svg%3E" type="image/svg+xml" />
-  <!-- Remove no-js class -->  
-  <script>document.documentElement.classList.remove('no-js');</script>
+
   <style>
-    /* =========
-       Temas (claro/escuro)
-       ========= */
+    /* ======================
+       Variáveis e reset
+       ====================== */
     :root{
-      --green:#0a7d32;        /* verde institucional */
-      --green-600:#0d8f39;
-      --yellow:#ffc400;       /* amarelo institucional */
-      --bg:#f9fafb;           /* fundo claro */
-      --surface:#ffffff;      /* cartões */
-      --surface-2:#f3f4f6;    /* contraste sutil */
-      --line:#e6e7eb;         /* linhas sutis */
-      --text:#101418;         /* texto principal */
-      --text-soft:#3b3f45;    /* texto secundário */
-      --muted:#6b7280;        /* texto neutro */
-      --ok:#0f9d58;
-      --warn:#ffb703;
-      --err:#ef4444;
-      --radius:18px;
-      --shadow:0 10px 30px rgba(16,20,24,.06);
-      --shadow-soft:0 6px 18px rgba(16,20,24,.05);
-      --ring:0 0 0 3px rgba(10,125,50,.15);
-      --header-bg:rgba(255,255,255,.8);
-      --transition:color 0.3s ease, background-color 0.3s ease;
-    }
-    
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg:#121212;
-        --surface:#1e1e1e;
-        --surface-2:#2a2a2a;
-        --line:#333333;
-        --text:#f0f0f0;
-        --text-soft:#c0c0c0;
-        --muted:#909090;
-        --shadow:0 10px 30px rgba(0,0,0,.2);
-        --shadow-soft:0 6px 18px rgba(0,0,0,.15);
-        --header-bg:rgba(30,30,30,.8);
-      }
-    }
-    
-    /* Classe para forçar tema escuro */
-    .dark-theme {
-      --bg:#121212;
-      --surface:#1e1e1e;
-      --surface-2:#2a2a2a;
-      --line:#333333;
-      --text:#f0f0f0;
-      --text-soft:#c0c0c0;
-      --muted:#909090;
-      --shadow:0 10px 30px rgba(0,0,0,.2);
-      --shadow-soft:0 6px 18px rgba(0,0,0,.15);
-      --header-bg:rgba(30,30,30,.8);
+      --green: #0a7d32;
+      --green-600: #0d8f39;
+      --yellow: #ffc400;
+      --bg: #f9fafb;
+      --surface: #ffffff;
+      --surface-2: #f3f4f6;
+      --line: #e6e7eb;
+      --text: #101418;
+      --text-soft: #3b3f45;
+      --muted: #6b7280;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(16,20,24,.06);
+      --shadow-soft: 0 6px 18px rgba(16,20,24,.05);
+      --ring: 0 0 0 3px rgba(10,125,50,.12);
+      --header-bg: rgba(255,255,255,.82);
+      --transition: color .25s ease, background-color .25s ease, box-shadow .18s ease, transform .12s ease;
+      --max-width: 980px;
+      --gap: 12px;
     }
 
-    /* Reset/normalização mínima */
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{height:100%}
+    * { box-sizing: border-box; }
+    html,body { height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       color:var(--text);
       background:
-        radial-gradient(1000px 700px at 70% -20%, rgba(10,125,50,.07), transparent 60%),
-        radial-gradient(800px 500px at -10% 10%, rgba(255,196,0,.06), transparent 60%),
+        radial-gradient(1000px 700px at 70% -20%, rgba(10,125,50,.04), transparent 60%),
+        radial-gradient(800px 500px at -10% 10%, rgba(255,196,0,.03), transparent 60%),
         var(--bg);
-      line-height:1.55;
       -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
+      line-height:1.55;
       transition: var(--transition);
+      padding-bottom:60px;
     }
 
-    a{color:var(--green-600);text-decoration:none}
-    a:focus,a:hover{text-decoration:underline}
+    a { color:var(--green-600); text-decoration:none; }
+    a:hover, a:focus { text-decoration:underline; }
 
-    .wrap{max-width:980px;margin-inline:auto;padding:0 16px}
+    .wrap { max-width:var(--max-width); margin-inline:auto; padding:0 16px; }
 
-    /* Header fixo com vidro */
-    header{
-      position:sticky;top:0;z-index:30;
+    /* ============= Header ============= */
+    header {
+      position: sticky;
+      top:0;
+      z-index:40;
       background:var(--header-bg);
       border-bottom:1px solid var(--line);
-      backdrop-filter:saturate(1.2) blur(10px);
+      backdrop-filter: blur(8px) saturate(1.1);
       transition: var(--transition);
     }
-    .topbar{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:12px;min-width:0}
-    .logo{
-      width:62px;height:62px;border-radius:12px;display:grid;place-items:center;
-      background: #fff;
-      box-shadow:var(--shadow-soft);
-      overflow: hidden;
+    .topbar { display:flex; align-items:center; gap:var(--gap); justify-content:space-between; padding:12px 0; }
+    .brand { display:flex; align-items:center; gap:12px; min-width:0; }
+    .logo {
+      width:58px; height:58px; border-radius:12px; display:grid; place-items:center;
+      background:var(--surface); box-shadow:var(--shadow-soft); overflow:hidden;
+      flex:0 0 58px;
     }
-    
-    @media (prefers-color-scheme: dark) {
-      .logo {
-        background: var(--surface);
-      }
-    }
-    .brand h1{font-size:18px;line-height:1.1;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .brand small{display:block;color:var(--muted);font-weight:600}
+    .brand h1 { margin:0; font-size:18px; line-height:1.05; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .brand small { display:block; color:var(--muted); font-weight:600; font-size:13px; }
 
-    .actions{display:flex;gap:8px}
-    .btn{
-      appearance:none;border:1px solid var(--line);cursor:pointer;
-      padding:10px 14px;border-radius:12px;font-weight:700;font-size:14px;
-      color:var(--text);background:var(--surface);
-      box-shadow:var(--shadow-soft);transition:.2s transform,.2s box-shadow,.2s background,.2s border-color;
-    }
-    .btn:hover{transform:translateY(-1px)}
-    .btn:active{transform:translateY(0);box-shadow:none}
-    .btn-primary{background:var(--green);border-color:transparent;color:#fff}
-    .btn-chip{
-      display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;font-weight:700;font-size:13px;
-      background:var(--surface);border:1px solid var(--line)
-    }
+    .actions { display:flex; gap:8px; align-items:center; }
 
-    /* Nav tags (atalhos) */
-    nav.tags{display:flex;gap:8px;overflow:auto;padding:8px 0 12px}
-    .tag{
-      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
-      white-space:nowrap;color:var(--text);background:var(--surface);opacity:.95;transition:.2s;
-    }
-    .tag:focus{outline:none;box-shadow:var(--ring)}
-    .tag.active{background:linear-gradient(90deg, rgba(10,125,50,.12), rgba(255,196,0,.10));border-color:rgba(10,125,50,.25)}
-
-    /* Busca */
-    .search{position:relative;margin:8px 0 14px}
-    .search input{
-      width:100%;padding:14px 44px 14px 44px;border-radius:14px;
-      background:#fff;border:1px solid var(--line);
-      color:var(--text);font-size:15px;outline:none;box-shadow:var(--shadow-soft)
-    }
-    .search input:focus{box-shadow:var(--ring)}
-    .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.7}
-    .search .clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:var(--muted);font-size:18px;cursor:pointer}
-
-    /* Main / cards */
-    main{padding:18px 0 90px}
-    section.card{
-      background:linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+    .btn {
+      appearance:none;
       border:1px solid var(--line);
-      border-radius:var(--radius);box-shadow:var(--shadow);
-      padding:16px;margin:14px 0;scroll-margin-top:92px
+      cursor:pointer;
+      padding:9px 12px;
+      border-radius:12px;
+      font-weight:700;
+      font-size:13px;
+      color:var(--text);
+      background:var(--surface);
+      box-shadow:var(--shadow-soft);
+      transition: var(--transition);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
-    .card h2{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:18px}
-    .card p,.card li{color:var(--text-soft)}
-    .lead{font-size:15.5px}
+    .btn:active { transform: translateY(0); box-shadow:none; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background:var(--green); color:#fff; border-color:transparent; }
 
-    /* Accordion */
-    details{border:1px solid var(--line);border-radius:14px;margin:12px 0;background:#fff}
-    details[open]{background:linear-gradient(0deg,#fff, #fff 70%, rgba(10,125,50,.03))}
-    summary{list-style:none;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:10px}
-    summary::-webkit-details-marker{display:none}
-    .summary-title{font-weight:800}
-    .summary-meta{margin-left:auto;color:var(--muted);font-size:12px}
-    .accordion-body{padding:0 16px 14px 16px}
-    .list{margin:8px 0 8px 18px}
-
-    /* Pills */
-    .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
-    .pill.ok{background:rgba(15,157,88,.12);color:#0a6b3a}
-    .pill.warn{background:rgba(255,183,3,.14);color:#8a5a00}
-    .pill.err{background:rgba(239,68,68,.14);color:#7c1d1d}
-
-    /* FAB + voltar ao topo */
-    .fab{
-      position:fixed;right:14px;bottom:14px;z-index:40;
-      display:flex;gap:10px;flex-direction:column
+    /* ============= Tags / Nav ============= */
+    nav.tags { display:flex; gap:8px; overflow:auto; padding:8px 0 12px; -webkit-overflow-scrolling:touch; }
+    .tag {
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      white-space:nowrap;
+      color:var(--text);
+      background:var(--surface);
+      opacity:.96;
+      font-weight:700;
+      font-size:13px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
     }
-    .fab button{border-radius:999px;padding:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);box-shadow:var(--shadow);cursor:pointer;transition:var(--transition)}
-    .fab button svg{width:22px;height:22px}
+    .tag.active { background: linear-gradient(90deg, rgba(10,125,50,.10), rgba(255,196,0,.06)); border-color: rgba(10,125,50,.18); }
 
-    footer{padding:30px 0;color:var(--muted);text-align:center;font-size:12px}
-
-    /* Icon baseline */
-    .icon{width:20px;height:20px;flex:0 0 20px}
-
-    /* Realce de busca */
-    mark{background:linear-gradient(0deg, rgba(255,196,0,.45), rgba(255,196,0,.45));padding:0 .15em;border-radius:4px;color:var(--text);transition:var(--transition)}
-
-    /* Animações */
-    .reveal{opacity:0;transform:translateY(6px);transition:.45s opacity,.45s transform}
-    .reveal.visible{opacity:1;transform:none}
-
-    /* Helpers */
-    .muted{color:var(--muted)}
-    .kbd{display:inline-block;padding:2px 6px;border-radius:6px;border:1px solid var(--line);font-family:ui-monospace, monospace;background:var(--surface);transition:var(--transition)}
-    .grid-2{display:grid;grid-template-columns:1fr;gap:10px}
-    @media (min-width:720px){.grid-2{grid-template-columns:1fr 1fr}}
-
-    /* Print styles */
-    @media print{
-      header, .fab, nav.tags, .search, .btn-print-only{display:none!important}
-      body{background:white!important;color:#000!important}
-      section.card{box-shadow:none!important;border-color:#aaa!important;background:#fff!important}
-      .pill{border:1px solid #aaa!important}
-      a{color:#000!important}
-      mark{background:#ff0!important}
-      /* Forçar tema claro na impressão */
-      body.dark-theme{--bg:#fff;--surface:#fff;--surface-2:#f3f4f6;--text:#101418;--text-soft:#3b3f45;--muted:#6b7280}
+    /* ============= Search (compact) ============= */
+    .search { position:relative; margin:10px 0 14px; display:flex; gap:8px; align-items:center; }
+    .search input {
+      width:100%; padding:12px 40px 12px 40px; border-radius:12px; background:var(--surface); border:1px solid var(--line);
+      color:var(--text); font-size:14px; outline:none; box-shadow:var(--shadow-soft);
     }
+    .search input:focus { box-shadow: var(--ring); }
+    .search .icon-left { position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.7; }
+    .search .clear { position:absolute; right:8px; top:50%; transform:translateY(-50%); background:transparent; border:0; font-size:18px; color:var(--muted); cursor:pointer; }
 
-    /* Acessibilidade/Movimento reduzido */
-    @media (prefers-reduced-motion:reduce){
-      *{transition:none!important;animation:none!important}
+    /* ============= Main / Cards ============= */
+    main { padding:18px 0 30px; }
+    section.card {
+      background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:16px;
+      margin:12px 0;
+      scroll-margin-top:92px;
+      transition: var(--transition);
+    }
+    .card h2 { display:flex; align-items:center; gap:10px; margin:0 0 8px; font-size:18px; }
+    .card p, .card li { color:var(--text-soft); margin:6px 0; }
+    .lead { font-size:15.5px; margin:6px 0 10px; }
+
+    /* ============= Accordion ============= */
+    details { border:1px solid var(--line); border-radius:12px; margin:10px 0; background:var(--surface); padding:0; overflow:hidden; transition: var(--transition); }
+    details[open] { box-shadow: var(--shadow-soft); }
+    summary {
+      list-style:none; padding:12px 14px; cursor:pointer; display:flex; align-items:center; gap:10px;
+      user-select:none; outline:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .summary-title { font-weight:800; font-size:14px; }
+    .summary-meta { margin-left:auto; color:var(--muted); font-size:12px; }
+
+    .accordion-body { padding:0 14px 14px 14px; color:var(--text-soft); }
+    .list { margin:8px 0 8px 18px; }
+
+    /* ============= Pills ============= */
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:800; }
+    .pill.ok{ background: rgba(15,157,88,.12); color:#0a6b3a; }
+    .pill.warn{ background: rgba(255,183,3,.14); color:#8a5a00; }
+    .pill.err{ background: rgba(239,68,68,.14); color:#7c1d1d; }
+
+    /* ============= FAB / Top ============= */
+    .fab { position:fixed; right:14px; bottom:14px; z-index:60; display:flex; gap:10px; flex-direction:column; }
+    .fab button { border-radius:999px; padding:12px; border:1px solid var(--line); background:var(--surface); color:var(--text); box-shadow:var(--shadow); cursor:pointer; transition:var(--transition); }
+    .fab button svg { width:20px; height:20px; display:block; }
+
+    footer { padding:28px 0; color:var(--muted); text-align:center; font-size:13px; }
+
+    /* ============= Utilities / Animation ============= */
+    .icon { width:20px; height:20px; flex:0 0 20px; display:inline-block; }
+    .reveal { opacity:0; transform: translateY(6px); transition: .48s opacity, .48s transform; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    mark { background: linear-gradient(0deg, rgba(255,196,0,.45), rgba(255,196,0,.45)); padding:0 .12em; border-radius:4px; color:var(--text); transition:var(--transition); }
+
+    .muted { color:var(--muted); }
+
+    .kbd { display:inline-block; padding:2px 6px; border-radius:6px; border:1px solid var(--line); font-family: ui-monospace, monospace; background:var(--surface); }
+
+    .grid-2 { display:grid; grid-template-columns:1fr; gap:12px; }
+    @media (min-width:720px) { .grid-2 { grid-template-columns:1fr 1fr; } }
+
+    /* Small screens adjustments */
+    @media (max-width:520px){
+      .brand h1{ font-size:15px; }
+      .brand small{ font-size:12px; }
+      .btn { padding:8px 10px; font-size:13px; }
+      .logo { width:50px; height:50px; border-radius:10px; }
     }
   </style>
 </head>
 <body>
-  <!-- SVG Sprite (ícones inline, sem dependências externas) -->
+  <!-- SVG sprite (ícones inline) -->
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
     <defs>
-      <symbol id="i-logo" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2Zm0 2.2a7.8 7.8 0 1 0 0 15.6 7.8 7.8 0 0 0 0-15.6Zm-.2 2.4c.5 0 .9.4.9.9v4.6l3.3 1.9c.43.25.58.8.33 1.22a.9.9 0 0 1-1.22.33l-3.7-2.1a1.4 1.4 0 0 1-.64-1.2V7.5c0-.5.4-.9.9-.9Z"/>
-      </symbol>
-      
+      <symbol id="i-logo" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2Zm0 2.2a7.8 7.8 0 1 0 0 15.6 7.8 7.8 0 0 0 0-15.6Zm-.2 2.4c.5 0 .9.4.9.9v4.6l3.3 1.9c.43.25.58.8.33 1.22a.9.9 0 0 1-1.22.33l-3.7-2.1a1.4 1.4 0 0 1-.64-1.2V7.5c0-.5.4-.9.9-.9Z"/></symbol>
       <symbol id="i-search" viewBox="0 0 24 24"><path fill="currentColor" d="M10 2a8 8 0 1 1 5.3 14l4.4 4.4-1.4 1.4-4.4-4.4A8 8 0 0 1 10 2Zm0 2a6 6 0 1 0 0 12A6 6 0 0 0 10 4Z"/></symbol>
       <symbol id="i-uniform" viewBox="0 0 24 24"><path fill="currentColor" d="M8 3c1.1 1 2.5 1.5 4 1.5S14.9 4 16 3l3 3-2 5h-2V7h-2v4h-2V7H9v4H7L5 6l3-3ZM6 14h12v7H6v-7Z"/></symbol>
       <symbol id="i-map" viewBox="0 0 24 24"><path fill="currentColor" d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2Zm0 2.2v12.6l-4 1.3V6.5l4-1.3Zm2 .4 4 1.3v12.6l-4-1.3V5.6Zm10 .9v12.6l-4 1.3V7.8l4-1.3Z"/></symbol>
@@ -241,9 +208,6 @@
       <symbol id="i-up" viewBox="0 0 24 24"><path fill="currentColor" d="M12 5l7 7-1.4 1.4L13 9.8V20h-2V9.8L6.4 13.4 5 12l7-7Z"/></symbol>
       <symbol id="i-expand" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10h10v2H7v-2Zm0 4h10v2H7v-2ZM7 6h10v2H7V6Z"/></symbol>
       <symbol id="i-collapse" viewBox="0 0 24 24"><path fill="currentColor" d="M7 6h10v2H7V6Zm0 12h10v-2H7v2Z"/></symbol>
-      <symbol id="i-theme" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zm0-18c4.42 0 8 3.58 8 8s-3.58 8-8 8v-16z"/>
-      </symbol>
     </defs>
   </svg>
 
@@ -251,41 +215,47 @@
     <div class="wrap">
       <div class="topbar">
         <div class="brand" aria-label="D-Táxi Manual Congonhas">
-          <div class="logo" aria-hidden="true"><img src="TAXU (2).png" alt="D-Táxi Logo" style="width:100%;height:100%;object-fit:contain;"></div>
+          <div class="logo" aria-hidden="true">
+            <!-- Coloque aqui um img real se quiser -->
+            <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-logo" /></svg>
+          </div>
           <div>
             <h1>D-Táxi • Manual Congonhas</h1>
             <small>Guia interativo de operações</small>
           </div>
         </div>
-        <div class="actions">
-          <button class="btn btn-chip" id="btnTheme" title="Alternar tema" aria-label="Alternar tema claro/escuro"><svg class="icon" style="vertical-align:middle"><use href="#i-theme"/></svg></button>
-          <button class="btn btn-chip" id="btnExpand"><svg class="icon" style="vertical-align:middle"><use href="#i-expand"/></svg> Expandir tudo</button>
 
+        <div class="actions" role="group" aria-label="Ações">
+          <button class="btn btn-chip" id="btnExpand" aria-pressed="false" title="Expandir / Fechar todos">
+            <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg>
+            Expandir tudo
+          </button>
         </div>
       </div>
+
       <nav class="tags" aria-label="Atalhos">
-        <a class="tag active" href="#intro"><svg class="icon"><use href="#i-rules"/></svg> Início</a>
-        <a class="tag" href="#padrao"><svg class="icon"><use href="#i-uniform"/></svg> Padrão</a>
-        <a class="tag" href="#estrutura"><svg class="icon"><use href="#i-map"/></svg> Estrutura</a>
-        <a class="tag" href="#fluxo"><svg class="icon"><use href="#i-rules"/></svg> Fluxo</a>
-        <a class="tag" href="#pagamentos"><svg class="icon"><use href="#i-pay"/></svg> Pagamentos</a>
-        <a class="tag" href="#bolinhas"><svg class="icon"><use href="#i-dot"/></svg> Bolinhas</a>
-        <a class="tag" href="#regras"><svg class="icon"><use href="#i-alert"/></svg> Regras gerais</a>
+        <a class="tag active" href="#intro"><svg class="icon" aria-hidden="true"><use href="#i-rules"/></svg> Início</a>
+        <a class="tag" href="#padrao"><svg class="icon" aria-hidden="true"><use href="#i-uniform"/></svg> Padrão</a>
+        <a class="tag" href="#estrutura"><svg class="icon" aria-hidden="true"><use href="#i-map"/></svg> Estrutura</a>
+        <a class="tag" href="#fluxo"><svg class="icon" aria-hidden="true"><use href="#i-rules"/></svg> Fluxo</a>
+        <a class="tag" href="#pagamentos"><svg class="icon" aria-hidden="true"><use href="#i-pay"/></svg> Pagamentos</a>
+        <a class="tag" href="#bolinhas"><svg class="icon" aria-hidden="true"><use href="#i-dot"/></svg> Bolinhas</a>
+        <a class="tag" href="#regras"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg> Regras gerais</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap" id="content">
-    <!-- Intro -->
+    <!-- Introdução -->
     <section class="card reveal" id="intro">
-      <h2><svg class="icon"><use href="#i-rules"/></svg> Manual de Operações</h2>
+      <h2><svg class="icon" aria-hidden="true"><use href="#i-rules"/></svg> Manual de Operações</h2>
       <p class="lead"><strong>Aeroporto de Congonhas.</strong></p>
-      <p class="lead">Este manual é o seu guia completo para operar no aeroporto pela D-TÁXI. Ele detalha o funcionamento de cada Ponto de Apoio (PA) e as regras que garantem a eficiência e o profissionalismo do nosso serviço.</p>
+      <p class="lead">Este manual é o seu guia completo para operar no aeroporto pela <strong>D-TÁXI</strong>. Ele detalha o funcionamento de cada Ponto de Apoio (PA) e as regras que garantem a eficiência e o profissionalismo do nosso serviço.</p>
     </section>
 
     <!-- Padrão Operacional -->
     <section class="card reveal" id="padrao">
-      <h2><svg class="icon"><use href="#i-uniform"/></svg> Padrão Operacional Obrigatório</h2>
+      <h2><svg class="icon" aria-hidden="true"><use href="#i-uniform"/></svg> Padrão Operacional Obrigatório</h2>
       <p>Para representar a excelência da D-Táxi, o motorista deve estar devidamente uniformizado e com o veículo alinhado e limpo antes de entrar na fila no PA5. O não cumprimento deste padrão pode resultar em penalidades. As regras de vestimenta são as seguintes:</p>
       <ul class="list">
         <li><strong>Camisa:</strong> Social, branca, de manga comprida ou curta.</li>
@@ -297,7 +267,7 @@
 
     <!-- Estrutura -->
     <section class="card reveal" id="estrutura">
-      <h2><svg class="icon"><use href="#i-map"/></svg> 1. A Estrutura da Fila e a Localização dos PAs</h2>
+      <h2><svg class="icon" aria-hidden="true"><use href="#i-map"/></svg> 1. A Estrutura da Fila e a Localização dos PAs</h2>
       <p>O sistema do D-Táxi é uma cadeia de espera, onde os carros se movem de áreas maiores para áreas menores, mais próximas ao embarque de passageiros. O fluxo é totalmente automático, baseado no sinal de GPS e na anotação cronológica (quem chega primeiro, é solicitado primeiro).</p>
       <ul class="list">
         <li><strong>PA5:</strong> A primeira entrada no sistema, com número ilimitado de vagas, localizado nas proximidades do Assaí Aeroporto.</li>
@@ -311,7 +281,7 @@
 
     <!-- Fluxo -->
     <section class="card reveal" id="fluxo">
-      <h2><svg class="icon"><use href="#i-rules"/></svg> 2. Fluxo de Trabalho e Regras por Ponto de Apoio</h2>
+      <h2><svg class="icon" aria-hidden="true"><use href="#i-rules"/></svg> 2. Fluxo de Trabalho e Regras por Ponto de Apoio</h2>
 
       <details>
         <summary><span class="summary-title">PA5 (Ponto de Entrada)</span> <span class="summary-meta">Entrada no sistema</span></summary>
@@ -321,9 +291,9 @@
           <ul class="list">
             <li><strong>Acesso:</strong> Dirija até a área virtual e certifique-se de que o aplicativo registrou sua entrada.</li>
             <li><strong>Padrão de Qualidade:</strong> A partir deste ponto, você deve estar devidamente uniformizado e com o carro limpo e alinhado, pronto para o atendimento.</li>
-            <li><strong>Conduta:</strong> Não é permitido obstruir entradas/saídas, parar em fila dupla ou na contramão. Todas as infrações de trânsito devem ser evitadas.</li>
-            <li><strong>Disponibilidade:</strong> Não realize refeições no PA5 com o PDA livre, pois isso retarda o avanço da fila.</li>
-            <li><strong>Avanço:</strong> Aguarde a notificação do aplicativo para se mover para o Bolsão Principal.</li>
+            <li><strong>Conduta:</strong> Não é permitido obstruir entradas/saídas, parar em fila dupla ou na contramão.</li>
+            <li><strong>Disponibilidade:</strong> Evite refeições no PA5 com o PDA livre.</li>
+            <li><strong>Avanço:</strong> Aguarde a notificação do aplicativo para se mover ao Bolsão Principal.</li>
           </ul>
         </div>
       </details>
@@ -337,20 +307,10 @@
           </ul>
           <p><strong>Instruções de Operação:</strong></p>
           <ul class="list">
-            <li><strong>Conexão:</strong> A unidade deve estar anotada na fila do Bolsão e conectada ao PDA para permanecer no local. Se houver desconexão, livre ou ocupado da fila, a unidade deve retornar ao PA5.</li>
-            <li><strong>Fluxo de Veículos:</strong> A entrada deve ser feita pelo portão 1 e a saída pelo portão 2.</li>
-            <li><strong>Estacionamento:</strong> As vagas são dimensionadas para estacionar com segurança, sem muitas manobras.</li>
-            <li><strong>Proibições:</strong>
-              <ul class="list">
-                <li>Não é permitido parar ou estacionar nas vias de deslocamento.</li>
-                <li>Não é permitido circular na contramão.</li>
-                <li>Não é permitido lavar o carro com água (apenas pano a seco).</li>
-                <li>Não é permitido buzinar.</li>
-                <li>Não é permitido abandonar o carro no local.</li>
-              </ul>
-            </li>
-            <li><strong>Padrão de Saída:</strong> Não é permitido sair do Bolsão com o carro sujo e/ou sem o uniforme.</li>
-            <li><strong>Próximo Passo:</strong> Ao ser solicitado para o próximo PA, desocupe a vaga imediatamente e prossiga.</li>
+            <li><strong>Conexão:</strong> A unidade deve estar anotada na fila do Bolsão e conectada ao PDA para permanecer no local.</li>
+            <li><strong>Fluxo de Veículos:</strong> Entrada pelo portão 1 e saída pelo portão 2.</li>
+            <li><strong>Proibições:</strong> Não lavar o carro com água, não buzinar, não abandonar o carro no local.</li>
+            <li><strong>Padrão:</strong> Não sair do Bolsão com o carro sujo ou sem uniforme.</li>
           </ul>
         </div>
       </details>
@@ -363,19 +323,11 @@
             <li><strong>Capacidade:</strong> 24 vagas (17 baia principal + 7 extras).</li>
             <li><strong>Função:</strong> Guarnecer o PA2; pode ser chamado para o Piso Inferior.</li>
           </ul>
-          <p><strong>Instruções de Operação:</strong></p>
+          <p><strong>Instruções:</strong></p>
           <ul class="list">
-            <li><strong>Fluxo Interno:</strong> Vagas extras avançam para a baia principal quando houver espaço.</li>
-            <li><strong>Manutenção da Fila:</strong> Puxe os carros à frente quando um colega sair, eliminando lacunas.</li>
-            <li><strong>Limpeza Leve:</strong> Permitida limpeza rápida com panos.</li>
-            <li><strong>Proibição:</strong> Não é permitido abandonar o carro no local.</li>
-            <li><strong>Atenção Dupla:</strong>
-              <ul class="list">
-                <li>Notificação para avançar ao PA2.</li>
-                <li>Chamado direto e prioritário para o Piso Inferior.</li>
-              </ul>
-            </li>
-            <li><strong>Regra de Ouro (Piso Inferior):</strong> Vaga liberada aciona automaticamente o primeiro carro do PA3. Desloque-se imediatamente.</li>
+            <li>Puxe os carros à frente quando um colega sair para evitar lacunas.</li>
+            <li>Limpeza rápida com pano é permitida; limpeza com água é proibida.</li>
+            <li>Não abandonar o carro no local.</li>
           </ul>
         </div>
       </details>
@@ -384,24 +336,14 @@
         <summary><span class="summary-title">PA2 (Ponto Final de Espera)</span> <span class="summary-meta">12 vagas</span></summary>
         <div class="accordion-body">
           <ul class="list">
-            <li><strong>Localização:</strong> Extensão do desembarque, próximo à portaria 3 da Gol Linhas Aéreas.</li>
-            <li><strong>Função:</strong> Última área antes do embarque no Piso Superior (P0), fila rápida.</li>
+            <li><strong>Localização:</strong> Extensão do desembarque, próximo à portaria 3 da Gol.</li>
+            <li><strong>Função:</strong> Última área antes do embarque no Piso Superior (P0).</li>
           </ul>
-          <p><strong>Instruções de Operação:</strong></p>
+          <p><strong>Instruções:</strong></p>
           <ul class="list">
-            <li><strong>Preparação:</strong> Permaneça próximo ao veículo; a fila avança rapidamente.</li>
-            <li><strong>Ultrapassagem:</strong> Proibida a partir da faixa de pedestre em frente à VASP (saindo da Washington Luís).</li>
-            <li><strong>Dinâmica da Fila:</strong> Se o PDA tocar apenas para você (mesmo sendo 2º/3º), pode prosseguir ao Piso Superior (P0). Se tocar também para os que estão à frente, respeite a fila física.</li>
-            <li><strong>Proibições:</strong>
-              <ul class="list">
-                <li>Sem limpeza do carro no local.</li>
-                <li>Sem ultrapassagem; respeite a ordem.</li>
-                <li>Não passar sobre a guia, dar ré ou buzinar.</li>
-                <li>Evite obstruir entradas/saídas de veículos.</li>
-                <li>Não abandonar o carro.</li>
-              </ul>
-            </li>
-            <li><strong>Penalidade:</strong> Unidade que retardar o progresso será punida.</li>
+            <li>Permaneça próximo ao veículo; a fila avança rapidamente.</li>
+            <li>Ultrapassagens são proibidas a partir da faixa em frente à VASP.</li>
+            <li>Não limpar o carro no local, não buzinar, não abandonar o carro.</li>
           </ul>
         </div>
       </details>
@@ -410,33 +352,9 @@
         <summary><span class="summary-title">Piso Inferior (Área de Embarque)</span> <span class="summary-meta">2 vagas</span></summary>
         <div class="accordion-body">
           <ul class="list">
-            <li><strong>Localização:</strong> Interior do terminal do aeroporto.</li>
             <li><strong>Função:</strong> Embarque de alta prioridade, abastecido pelo PA3.</li>
-          </ul>
-          <p><strong>Instruções de Operação:</strong></p>
-          <ul class="list">
-            <li><strong>Acesso Controlado:</strong> Quando houver vagas, o primeiro e o segundo carro do PA3 serão solicitados a guarnecer o Piso Inferior.</li>
-            <li><strong>Condição do Veículo:</strong> Portas destravadas, vidros fechados e ar-condicionado ligado.</li>
-            <li><strong>Agilidade e Profissionalismo:</strong> Seja ágil; para inserir o endereço você pode:
-              <ul class="list">
-                <li>Inserir o endereço fora da baia, de maneira segura.</li>
-                <li>Entregar o telefone ao passageiro para que ele mesmo insira o endereço.</li>
-                <li>Parar brevemente na área de embarque do aeroporto para inserir o destino.</li>
-                <li>Mantenha a cortesia e o profissionalismo, sempre atendendo bem os passageiros.</li>
-                <li>Mantenha seu carro limpo e dirija com cautela e segurança.</li>
-              </ul>
-            </li>
-            <li><strong>Regras do Local:</strong>
-              <ul class="list">
-                <li>Não é permitido limpar o carro.</li>
-                <li>Não é permitido permanecer no local sem estar anotado no PDA.</li>
-                <li>É permitido aguardar ao lado do carro para auxiliar no atendimento.</li>
-                <li>Não é permitido entrar no saguão do aeroporto para chamar passageiros.</li>
-                <li>Não é permitido buzinar.</li>
-                <li>Não é permitido abandonar o carro no local.</li>
-              </ul>
-            </li>
-            <li><strong>Atendimento:</strong> Na ausência de fiscal, aborde com educação e respeite as áreas das demais companhias. Problemas devem ser comunicados à coordenação.</li>
+            <li><strong>Regras:</strong> Portas destravadas, vidros fechados e ar-condicionado ligado.</li>
+            <li>Não é permitido limpar o carro, entrar no saguão para chamar passageiros ou buzinar.</li>
           </ul>
         </div>
       </details>
@@ -446,30 +364,8 @@
         <div class="accordion-body">
           <ul class="list">
             <li><strong>Localização:</strong> Piso térreo – área de desembarque.</li>
-            <li><strong>Função:</strong> Principal área de embarque. O embarque pode alternar entre as empresas (ex.: 10 carros do 606, 10 da D-TÁXI e 10 da Vermelho e Branco), ajustando conforme a demanda.</li>
-          </ul>
-          <p><strong>Instruções de Operação:</strong></p>
-          <ul class="list">
-            <li><strong>Atenção:</strong> O embarque é dinâmico. Solucione problemas fora do ponto com o coordenador.</li>
-            <li><strong>Condição do Veículo:</strong> Portas destravadas, vidros fechados e ar-condicionado ligado (não desligar).</li>
-            <li><strong>Agilidade e Profissionalismo:</strong> Para inserir o destino, você pode:
-              <ul class="list">
-                <li>Usar o microfone do app de mapas.</li>
-                <li>Entregar o telefone ao passageiro para que ele insira o endereço.</li>
-                <li>Parar brevemente na área de embarque para inserir o destino.</li>
-                <li>Mantenha cortesia, limpeza e direção defensiva.</li>
-              </ul>
-            </li>
-            <li><strong>Proibições:</strong>
-              <ul class="list">
-                <li>Não fazer limpeza no carro.</li>
-                <li>Não fumar.</li>
-                <li>Não descer do carro para conversar/socializar.</li>
-                <li>Não buzinar.</li>
-                <li>Não abandonar o carro.</li>
-                <li>É permitido sair do veículo apenas quando não houver fiscal; nunca entrar no saguão.</li>
-              </ul>
-            </li>
+            <li><strong>Função:</strong> Principal área de embarque; embarque pode alternar entre empresas conforme demanda.</li>
+            <li><strong>Regras:</strong> Não fumar, não descer para socializar, permanecer com cortesia e profissionalismo.</li>
           </ul>
         </div>
       </details>
@@ -477,7 +373,7 @@
 
     <!-- Pagamentos -->
     <section class="card reveal" id="pagamentos">
-      <h2><svg class="icon"><use href="#i-pay"/></svg> 3. Pagamentos e Cobranças</h2>
+      <h2><svg class="icon" aria-hidden="true"><use href="#i-pay"/></svg> 3. Pagamentos e Cobranças</h2>
       <p><strong>Obrigação de Pagamento:</strong> Todas as unidades são obrigadas a aceitar os seguintes métodos:</p>
       <ul class="list">
         <li><strong>PIX:</strong> Exigência da operadora do aeroporto.</li>
@@ -490,21 +386,21 @@
         <li>É proibido cobrar bandeira 2 fora do horário.</li>
         <li>É proibido prolongar o trajeto propositalmente.</li>
       </ul>
-      <p><strong>Penalidades:</strong> Recusa de pagamento, cobrança indevida ou prática ilegal pode levar à rescisão do contrato com a empresa.</p>
+      <p><strong>Penalidades:</strong> Recusa de pagamento ou cobrança indevida pode levar à rescisão do contrato.</p>
     </section>
 
     <!-- Bolinhas -->
     <section class="card reveal" id="bolinhas">
-      <h2><svg class="icon"><use href="#i-dot"/></svg> 4. Observações sobre o Sistema de Bolinhas</h2>
+      <h2><svg class="icon" aria-hidden="true"><use href="#i-dot"/></svg> 4. Observações sobre o Sistema de Bolinhas</h2>
       <ul class="list">
-        <li><strong>Bolinha Branca:</strong> Veículo aceita corridas com preço pré-fixado (tabela DTP). Procure a coordenação para adesão.</li>
+        <li><strong>Bolinha Branca:</strong> Veículo aceita corridas com preço pré-fixado (tabela DTP).</li>
         <li><strong>Bolinha Amarela:</strong> Veículo está na fila para embarque rápido da 99.</li>
       </ul>
     </section>
 
     <!-- Regras Gerais -->
     <section class="card reveal" id="regras">
-      <h2><svg class="icon"><use href="#i-alert"/></svg> 5. Regras Gerais e Cenários Específicos</h2>
+      <h2><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg> 5. Regras Gerais e Cenários Específicos</h2>
 
       <details>
         <summary><span class="summary-title">Fila Única</span></summary>
@@ -521,217 +417,107 @@
         <summary><span class="summary-title">Observações</span></summary>
         <div class="accordion-body">
           <ul class="list">
-            <li><strong>GPS Ativo:</strong> Mantenha o GPS do celular sempre ativo e com sinal forte.</li>
+            <li><strong>GPS Ativo:</strong> Mantenha o GPS sempre ativo e com sinal forte.</li>
             <li><strong>Responda Imediatamente:</strong> O sistema depende da sua resposta rápida.</li>
-            <li><strong>Proibição de Ultrapassagem em Deslocamento:</strong> Ao deslocar para o PA0, nenhuma ultrapassagem é tolerada.</li>
-            <li><strong>Perda da Posição:</strong> Sair de qualquer PA sem ser solicitado, ou não responder a um chamado, reposiciona a unidade ao final da fila do PA5.</li>
-            <li><strong>Infrações:</strong> O descumprimento destas regras, inclusive padrão de vestimenta e normas de trânsito, pode resultar em suspensão temporária do acesso ao sistema de fila do aeroporto.</li>
+            <li><strong>Perda da Posição:</strong> Sair de qualquer PA sem ser solicitado ou não responder a um chamado reposiciona a unidade ao final do PA5.</li>
+            <li><strong>Infrações:</strong> Descumprimento das regras pode resultar em suspensão temporária do acesso ao sistema.</li>
           </ul>
         </div>
       </details>
     </section>
+
   </main>
 
   <!-- Ações flutuantes -->
   <div class="fab" aria-label="Ações rápidas">
     <button id="btnTop" title="Voltar ao topo" aria-label="Voltar ao topo">
-      <svg><use href="#i-up"/></svg>
+      <svg aria-hidden="true"><use href="#i-up"/></svg>
     </button>
   </div>
 
   <footer class="wrap">
-    <p>© D-Táxi – Manual de Operações (Congonhas). Versão interativa para consulta e impressão.</p>
+    <p>© D-Táxi – Manual de Operações (Congonhas). Versão interativa para consulta.</p>
   </footer>
 
   <script>
-    // ====== Utilitários ======
-    const $ = (s,root=document)=>root.querySelector(s);
-    const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
+    /* ========= utilitários ========= */
+    const $ = (s, root = document) => root.querySelector(s);
+    const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
 
-    // ====== Botões principais ======
-    
+    // Expandir / fechar todos
     const btnExpand = $('#btnExpand');
-    const btnTop = $('#btnTop');
-
-    
-
     let allOpen = false;
-    btnExpand.addEventListener('click', ()=>{
+    btnExpand.addEventListener('click', () => {
       const dets = $$('details');
       allOpen = !allOpen;
       dets.forEach(d => d.open = allOpen);
       btnExpand.innerHTML = allOpen
-        ? '<svg class="icon" style="vertical-align:middle"><use href="#i-collapse"/></svg> Fechar tudo'
-        : '<svg class="icon" style="vertical-align:middle"><use href="#i-expand"/></svg> Expandir tudo';
+        ? '<svg class="icon" aria-hidden="true"><use href="#i-collapse"/></svg> Fechar tudo'
+        : '<svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg> Expandir tudo';
       btnExpand.setAttribute('aria-pressed', String(allOpen));
     });
 
-    btnTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+    // Voltar ao topo
+    const btnTop = $('#btnTop');
+    btnTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // ====== Navegação de tags (ativo) ======
+    // Observador para mostrar/ocultar botão topo
+    const topObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        btnTop.style.opacity = entry.isIntersecting ? '0' : '1';
+        btnTop.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
+      });
+    }, { threshold: 0 });
+    topObserver.observe(document.body);
+
+    // Ativar tag correspondente à seção visível
     const tags = $$('.tags .tag');
-    const obs = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
+    const sections = $$('#content > section');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
           const id = entry.target.id;
-          tags.forEach(t=>t.classList.toggle('active', t.getAttribute('href') === '#'+id));
+          tags.forEach(t => t.classList.toggle('active', t.getAttribute('href') === '#'+id));
         }
       });
-    }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
-    $$('#content > section').forEach(sec=>obs.observe(sec));
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(sec => obs.observe(sec));
 
-    // ====== Revelar na rolagem ======
-    const revObs = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('visible'); revObs.unobserve(e.target); }
-      });
-    },{threshold:.12});
-    $$('.reveal').forEach(el=>revObs.observe(el));
-
-    // ====== Busca com destaque ======
-    const q = $('#q');
-    const clearSearch = $('#clearSearch');
-    let lastMarks = [];
-
-    function clearMarks(){
-      lastMarks.forEach(m=>{
-        const parent = m.parentNode;
-        parent.replaceChild(document.createTextNode(m.textContent), m);
-        parent.normalize();
-      });
-      lastMarks = [];
-    }
-
-    function highlight(root, term){
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-        acceptNode(node){
-          if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          if(node.parentElement.closest('mark')) return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
-        }
-      });
-      const re = new RegExp(term, 'gi');
-      const found = [];
-      while(walker.nextNode()){
-        const node = walker.currentNode;
-        const matches = node.nodeValue.match(re);
-        if(matches){
-          const frag = document.createDocumentFragment();
-          let lastIndex = 0;
-          node.nodeValue.replace(re, (m, idx)=>{
-            const prec = node.nodeValue.slice(lastIndex, idx);
-            if(prec) frag.appendChild(document.createTextNode(prec));
-            const mk = document.createElement('mark');
-            mk.textContent = m;
-            frag.appendChild(mk);
-            found.push(mk);
-            lastIndex = idx + m.length;
-          });
-          const rest = node.nodeValue.slice(lastIndex);
-          if(rest) frag.appendChild(document.createTextNode(rest));
-          node.parentNode.replaceChild(frag, node);
-        }
-      }
-      return found;
-    }
-
-    function filterCards(term){
-      const cards = $$('#content > section.card');
-      if(!term){
-        cards.forEach(c=>c.style.removeProperty('opacity'));
-        return;
-      }
-      const t = term.toLowerCase();
-      cards.forEach(c=>{
-        const has = c.textContent.toLowerCase().includes(t);
-        c.style.opacity = has ? '1' : '.35';
-      });
-    }
-
-    q.addEventListener('input', ()=>{
-      clearMarks();
-      const term = q.value.trim();
-      if(term.length >= 2){
-        lastMarks = highlight($('#content'), term);
-        filterCards(term);
-      } else {
-        filterCards('');
-      }
-    });
-
-    clearSearch.addEventListener('click', ()=>{
-      q.value=''; q.focus();
-      filterCards(''); clearMarks();
-    });
-
-    // ====== Acessibilidade: teclado nos <summary> ======
-    $$('summary').forEach(s=>{
-      s.setAttribute('role','button');
-      s.setAttribute('tabindex','0');
-      s.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); s.click(); }
-      });
-    });
-
-    // ====== Suave ao clicar em atalhos ======
-    $$('.tags .tag').forEach(a=>{
-      a.addEventListener('click', (e)=>{
+    // Smooth scroll ao clicar nas tags
+    $$('.tags .tag').forEach(a => {
+      a.addEventListener('click', (e) => {
         const id = a.getAttribute('href');
         const el = $(id);
-        if(el){
+        if (el) {
           e.preventDefault();
-          el.scrollIntoView({behavior:'smooth', block:'start'});
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           history.replaceState(null, '', id);
         }
       });
     });
 
-    // ====== Estado do botão topo (mostra/esconde) ======
-    const topObserver = new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        btnTop.style.opacity = entry.isIntersecting ? '0' : '1';
-        btnTop.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
+    // Revelar seções ao rolar
+    const revObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); }
       });
-    }, {threshold:0});
-    topObserver.observe(document.body);
-    
-    // ====== Alternância de tema claro/escuro ======
-    const btnTheme = $('#btnTheme');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Verifica se há uma preferência salva no localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.body.classList.add('dark-theme');
-      btnTheme.innerHTML = '<svg class="icon" style="vertical-align:middle"><use href="#i-theme"/></svg> Tema Claro';
-    } else if (savedTheme === 'light') {
-      document.body.classList.remove('dark-theme');
-      btnTheme.innerHTML = '<svg class="icon" style="vertical-align:middle"><use href="#i-theme"/></svg> Tema Escuro';
-    } else if (prefersDarkScheme.matches) {
-      // Se não há preferência salva, mas o sistema está em modo escuro
-      document.body.classList.add('dark-theme');
-      btnTheme.innerHTML = '<svg class="icon" style="vertical-align:middle"><use href="#i-theme"/></svg> Tema Claro';
-    } else {
-      btnTheme.innerHTML = '<svg class="icon" style="vertical-align:middle"><use href="#i-theme"/></svg> Tema Escuro';
+    }, { threshold: 0.12 });
+    $$('.reveal').forEach(el => revObs.observe(el));
+
+    // Acessibilidade: permitir Enter/Space em summaries
+    $$('summary').forEach(s => {
+      s.setAttribute('role', 'button');
+      s.setAttribute('tabindex', '0');
+      s.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); s.click(); }
+      });
+    });
+
+    // Pequeno ajuste: se veio com hash, rola suavemente ao carregar
+    if (location.hash) {
+      const dest = $(location.hash);
+      if (dest) setTimeout(() => dest.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
     }
-    
-    // Alterna o tema quando o botão é clicado
-     btnTheme.addEventListener('click', () => {
-       if (document.body.classList.contains('dark-theme')) {
-         document.body.classList.remove('dark-theme');
-         localStorage.setItem('theme', 'light');
-         btnTheme.innerHTML = '<svg class="icon" style="vertical-align:middle"><use href="#i-theme"/></svg> Tema Escuro';
-         btnTheme.setAttribute('aria-label', 'Alternar para tema escuro');
-       } else {
-         document.body.classList.add('dark-theme');
-         localStorage.setItem('theme', 'dark');
-         btnTheme.innerHTML = '<svg class="icon" style="vertical-align:middle"><use href="#i-theme"/></svg> Tema Claro';
-         btnTheme.setAttribute('aria-label', 'Alternar para tema claro');
-       }
-     });
-     
-     // Adiciona atributos de acessibilidade
-     btnTheme.setAttribute('aria-pressed', document.body.classList.contains('dark-theme') ? 'true' : 'false');
   </script>
 </body>
 </html>
