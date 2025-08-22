@@ -35,6 +35,21 @@
       --max-width: 980px;
       --gap: 12px;
     }
+    
+    /* Tema escuro */
+    [data-theme="dark"] {
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --surface-2: #2a2a2a;
+      --line: #333333;
+      --text: #f5f5f5;
+      --text-soft: #d1d1d1;
+      --muted: #a0a0a0;
+      --header-bg: rgba(30,30,30,.9);
+      --shadow: 0 10px 30px rgba(0,0,0,.2);
+      --shadow-soft: 0 6px 18px rgba(0,0,0,.15);
+      --ring: 0 0 0 3px rgba(10,125,50,.25);
+    }
 
     * { box-sizing: border-box; }
     html,body { height:100%; }
@@ -184,12 +199,40 @@
     .grid-2 { display:grid; grid-template-columns:1fr; gap:12px; }
     @media (min-width:720px) { .grid-2 { grid-template-columns:1fr 1fr; } }
 
+    /* Estilos para as telas do aplicativo */
+    .app-screenshot {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 10px;
+      margin: 15px 0;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+    }
+    
+    .app-img {
+      max-width: 100%;
+      height: auto;
+      max-height: 350px;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    
+    .app-img:hover {
+      transform: scale(1.02);
+    }
+    
+    [data-theme="dark"] .app-screenshot {
+      background: #2a2a2a;
+    }
+
     /* Small screens adjustments */
     @media (max-width:520px){
       .brand h1{ font-size:15px; }
       .brand small{ font-size:12px; }
       .btn { padding:8px 10px; font-size:13px; }
       .logo { width:50px; height:50px; border-radius:10px; }
+      .app-img { max-height: 300px; }
     }
   </style>
 </head>
@@ -208,6 +251,8 @@
       <symbol id="i-up" viewBox="0 0 24 24"><path fill="currentColor" d="M12 5l7 7-1.4 1.4L13 9.8V20h-2V9.8L6.4 13.4 5 12l7-7Z"/></symbol>
       <symbol id="i-expand" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10h10v2H7v-2Zm0 4h10v2H7v-2ZM7 6h10v2H7V6Z"/></symbol>
       <symbol id="i-collapse" viewBox="0 0 24 24"><path fill="currentColor" d="M7 6h10v2H7V6Zm0 12h10v-2H7v2Z"/></symbol>
+      <symbol id="i-theme-light" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></symbol>
+      <symbol id="i-theme-dark" viewBox="0 0 24 24"><path fill="currentColor" d="M9.37 5.51c-.18.64-.27 1.31-.27 1.99 0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27C17.45 17.19 14.93 19 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49zM12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></symbol>
     </defs>
   </svg>
 
@@ -226,6 +271,10 @@
         </div>
 
         <div class="actions" role="group" aria-label="Ações">
+          <button class="btn btn-chip" id="btnTheme" aria-pressed="false" title="Alternar tema claro/escuro">
+            <svg class="icon" aria-hidden="true"><use href="#i-theme-light"/></svg>
+            <span>Tema</span>
+          </button>
           <button class="btn btn-chip" id="btnExpand" aria-pressed="false" title="Expandir / Fechar todos">
             <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg>
             Expandir tudo
@@ -442,6 +491,41 @@
             <li><strong>Ícone Verde:</strong> Indica status de conexão e operação do sistema.</li>
             <li><strong>Abas de Navegação:</strong> "MAPA" para visualização geográfica e "ÁREAS/PAs" para controle da fila.</li>
           </ul>
+          <div class="grid-2">
+            <div>
+              <p><strong>Tela de Status:</strong></p>
+              <div class="app-screenshot">
+                <img src="img/tela-status.svg" alt="Tela de alteração de status do aplicativo" class="app-img">
+              </div>
+              <p>Quando precisar alterar seu status, o aplicativo mostra opções como:</p>
+              <ul class="list">
+                <li><strong>OCUPADO:</strong> Quando estiver com passageiro</li>
+                <li><strong>FIM DE JORNADA:</strong> Quando encerrar seu turno</li>
+                <li><strong>CANCELAR:</strong> Para voltar ao status anterior</li>
+              </ul>
+              <p>Esta tela aparece ao clicar no seu status atual.</p>
+            </div>
+            <div>
+              <p><strong>Tela de Áreas/PAs:</strong></p>
+              <div class="app-screenshot">
+                <img src="img/tela-areas.svg" alt="Tela de áreas e PAs do aplicativo" class="app-img">
+              </div>
+              <p>Mostra a distribuição de veículos em cada área:</p>
+                        <ul class="list">
+            <li><strong>Área:</strong> Identificação do local (ex: "0 AERO SUP", "3 PA3")</li>
+            <li><strong>Veículos:</strong> Quantidade de carros em cada área</li>
+            <li><strong>Colunas 15/30/45+:</strong> <strong>Corridas agendadas</strong> - indicam quantas corridas estão programadas para cada horário (15 min, 30 min, 45+ min)</li>
+          </ul>
+          <p><strong>Sistema de Notificações:</strong> Quando há uma vaga disponível em um PA, o aplicativo exibe automaticamente uma mensagem de alerta centralizada com:</p>
+          <ul class="list">
+            <li><strong>Mensagem:</strong> "Seguir ao PA / Area: [NOME_DO_PA]. Vaga para [X] carros! (HH:MM:SS)"</li>
+            <li><strong>Aviso Sonoro:</strong> Alerta sonoro para chamar atenção imediatamente</li>
+            <li><strong>Botão "PARAR SOM":</strong> Para desativar o aviso sonoro</li>
+            <li><strong>Botão "OK":</strong> Para confirmar a notificação</li>
+          </ul>
+          <p>Use esta tela para monitorar o fluxo, acompanhar corridas agendadas e responder rapidamente às notificações de vagas disponíveis.</p>
+            </div>
+          </div>
         </div>
       </details>
 
@@ -452,7 +536,13 @@
             <li><strong>Tabela de Áreas:</strong> Exibe todas as áreas disponíveis com contagem de veículos em cada uma.</li>
             <li><strong>Coluna "Área":</strong> Nome da área (ex: "0 AERO SUP", "1 AERO INF", "2 PA2").</li>
             <li><strong>Coluna "Veículos":</strong> Quantidade de veículos atualmente na área (ex: "4", "3", "2").</li>
-            <li><strong>Colunas "15", "30", "45+":</strong> Tempos de espera em minutos para cada área.</li>
+            <li><strong>Colunas "15", "30", "45+":</strong> <strong>Corridas agendadas</strong> - número de corridas programadas para cada intervalo de tempo:
+              <ul class="list">
+                <li><strong>15:</strong> Corridas agendadas para os próximos 15 minutos</li>
+                <li><strong>30:</strong> Corridas agendadas para os próximos 30 minutos</li>
+                <li><strong>45+:</strong> Corridas agendadas para além de 45 minutos</li>
+              </ul>
+            </li>
             <li><strong>Ordenação:</strong> Clique na coluna "Área" para ordenar alfabeticamente.</li>
           </ul>
         </div>
@@ -495,14 +585,92 @@
       </details>
 
       <details>
+        <summary><span class="summary-title">Sistema de Notificações e Alertas</span></summary>
+        <div class="accordion-body">
+          <p><strong>Notificações de Vagas Disponíveis:</strong></p>
+          <ul class="list">
+            <li><strong>Alerta Centralizado:</strong> Quando uma vaga fica disponível em qualquer PA, o aplicativo exibe uma mensagem pop-up centralizada.</li>
+            <li><strong>Formato da Mensagem:</strong> "Seguir ao PA / Area: [NOME_DO_PA]. Vaga para [X] carros! (HH:MM:SS)"</li>
+            <li><strong>Aviso Sonoro:</strong> Alerta sonoro automático para garantir que você não perca a notificação.</li>
+            <li><strong>Controles do Alerta:</strong>
+              <ul class="list">
+                <li><strong>PARAR SOM:</strong> Desativa o aviso sonoro mantendo a mensagem visível</li>
+                <li><strong>OK:</strong> Confirma a leitura da notificação</li>
+              </ul>
+            </li>
+            <li><strong>Resposta Imediata:</strong> É fundamental responder rapidamente às notificações para manter sua posição na fila.</li>
+          </ul>
+          
+          <p><strong>Monitoramento de Corridas Agendadas:</strong></p>
+          <ul class="list">
+            <li><strong>Colunas 15/30/45+:</strong> Mostram a quantidade de corridas já agendadas para cada intervalo de tempo.</li>
+            <li><strong>Planejamento:</strong> Use essas informações para antecipar o fluxo de trabalho e se posicionar estrategicamente.</li>
+            <li><strong>Atualização em Tempo Real:</strong> Os dados são atualizados automaticamente a cada 6 segundos conforme indicado na barra inferior.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
         <summary><span class="summary-title">Solução de Problemas</span></summary>
         <div class="accordion-body">
+          <p><strong>⚠️ IMPORTANTE:</strong> Antes de tentar resolver problemas, certifique-se de que:</p>
           <ul class="list">
-            <li><strong>GPS Sem Sinal:</strong> Verifique se o GPS está ativo e com permissões concedidas.</li>
-            <li><strong>Falha de Conexão:</strong> Use o botão de atualização e verifique a conexão de internet.</li>
-            <li><strong>Erro de Posicionamento:</strong> Aguarde alguns minutos para nova sincronização automática.</li>
-            <li><strong>PDA Travado:</strong> Feche e reabra o aplicativo, mantendo o GPS ativo.</li>
-            <li><strong>Perda de Posição:</strong> Em caso de problemas, retorne ao PA5 para reiniciar o processo.</li>
+            <li>Não há outros aplicativos rodando em paralelo (TikTok, bancos, YouTube, etc.)</li>
+            <li>Seu sistema Android está atualizado (mínimo Android 7.0)</li>
+            <li>O aplicativo D-Táxi tem todas as permissões necessárias</li>
+            <li>O dispositivo atende aos requisitos mínimos de sistema</li>
+          </ul>
+          
+          <p><strong>Problemas Comuns e Soluções:</strong></p>
+          <ul class="list">
+            <li><strong>GPS Sem Sinal:</strong> Verifique se o GPS está ativo e com permissões concedidas</li>
+            <li><strong>Falha de Conexão:</strong> Use o botão de atualização e verifique a conexão de internet</li>
+            <li><strong>Erro de Posicionamento:</strong> Aguarde alguns minutos para nova sincronização automática</li>
+            <li><strong>PDA Travado:</strong> Feche e reabra o aplicativo, mantendo o GPS ativo</li>
+            <li><strong>Perda de Posição:</strong> Em caso de problemas, retorne ao PA5 para reiniciar o processo</li>
+            <li><strong>Notificações Não Aparecem:</strong> Verifique se o som está ativado e se as permissões de notificação estão concedidas</li>
+            <li><strong>Alerta Sonoro Não Funciona:</strong> Teste o volume do dispositivo e verifique se não está no modo silencioso</li>
+            <li><strong>Aplicativo Lento:</strong> Feche todos os outros apps e reinicie o dispositivo se necessário</li>
+            <li><strong>Erros de Sistema:</strong> Atualize seu Android para a versão mais recente disponível (mínimo Android 7.0)</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="summary-title">Requisitos do Sistema</span></summary>
+        <div class="accordion-body">
+          <p><strong>Importante:</strong> O aplicativo D-Táxi funciona apenas como receptor de informações do seu próprio aparelho. Ele não controla ou interfere no sistema operacional.</p>
+          
+                     <p><strong>Requisitos Mínimos:</strong></p>
+           <ul class="list">
+             <li><strong>Sistema Android:</strong> Mantenha seu sistema Android sempre atualizado para garantir compatibilidade e segurança</li>
+             <li><strong>Versão Mínima:</strong> Android 7.0 (API 24) ou superior - <strong>Obrigatório</strong></li>
+             <li><strong>RAM:</strong> Mínimo 2GB de memória RAM disponível</li>
+             <li><strong>Armazenamento:</strong> Pelo menos 500MB de espaço livre</li>
+             <li><strong>GPS:</strong> GPS ativo e com permissões concedidas</li>
+             <li><strong>Internet:</strong> Conexão estável (Wi-Fi ou 4G/5G)</li>
+           </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="summary-title">Funcionalidades Avançadas</span></summary>
+        <div class="accordion-body">
+          <p><strong>Características do Aplicativo D-Táxi:</strong></p>
+          <ul class="list">
+            <li><strong>Leve e Preciso:</strong> Aplicativo otimizado para funcionamento eficiente em smartphones</li>
+            <li><strong>Uso Intuitivo:</strong> Interface simplificada para fácil navegação</li>
+            <li><strong>Atualização Automática:</strong> Sistema de atualizações automáticas para sempre ter a versão mais recente</li>
+            <li><strong>Integração Total:</strong> Completamente integrado à plataforma Original Taxi 360º</li>
+          </ul>
+          
+          <p><strong>Recursos Operacionais:</strong></p>
+          <ul class="list">
+            <li><strong>Taxímetro Virtual:</strong> Controle digital de tarifas e corridas</li>
+            <li><strong>Corridas Pré-Pagas:</strong> Opção de compra de corridas antecipadas</li>
+            <li><strong>Notificações Push:</strong> Alertas em tempo real para vagas e chamados</li>
+            <li><strong>Comunicação Direta:</strong> Fale via mensagens ou ligue diretamente para o passageiro</li>
+            <li><strong>Operação em Segundo Plano:</strong> Funciona mesmo quando minimizado, mantendo notificações ativas</li>
           </ul>
         </div>
       </details>
@@ -510,12 +678,21 @@
       <details>
         <summary><span class="summary-title">Dicas de Uso</span></summary>
         <div class="accordion-body">
+          <p><strong>Uso Exclusivo do Aplicativo:</strong></p>
           <ul class="list">
-            <li><strong>Bateria:</strong> Mantenha o dispositivo sempre carregado durante o turno.</li>
-            <li><strong>Conectividade:</strong> Use preferencialmente Wi-Fi ou 4G para melhor estabilidade.</li>
-            <li><strong>Atualizações:</strong> Mantenha o aplicativo sempre atualizado para melhor performance.</li>
-            <li><strong>Backup:</strong> Tenha um dispositivo reserva em caso de problemas técnicos.</li>
-            <li><strong>Treinamento:</strong> Familiarize-se com todas as funcionalidades antes de iniciar operações.</li>
+            <li><strong>Evite Apps Paralelos:</strong> <strong>NÃO use</strong> aplicativos como TikTok, bancos, YouTube, redes sociais ou outros apps em paralelo com o D-Táxi</li>
+            <li><strong>Foco Total:</strong> Mantenha apenas o aplicativo D-Táxi em execução durante o turno</li>
+            <li><strong>Fechar Apps:</strong> Feche todos os outros aplicativos antes de iniciar operações</li>
+            <li><strong>Notificações:</strong> Desative notificações de outros apps para não interferir no sistema D-Táxi</li>
+          </ul>
+          
+          <p><strong>Manutenção do Dispositivo:</strong></p>
+          <ul class="list">
+            <li><strong>Bateria:</strong> Mantenha o dispositivo sempre carregado durante o turno</li>
+            <li><strong>Conectividade:</strong> Use preferencialmente Wi-Fi ou 4G para melhor estabilidade</li>
+            <li><strong>Atualizações:</strong> Mantenha o aplicativo sempre atualizado para melhor performance</li>
+            <li><strong>Backup:</strong> Tenha um dispositivo reserva em caso de problemas técnicos</li>
+            <li><strong>Treinamento:</strong> Familiarize-se com todas as funcionalidades antes de iniciar operações</li>
           </ul>
         </div>
       </details>
@@ -551,6 +728,43 @@
         : '<svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg> Expandir tudo';
       btnExpand.setAttribute('aria-pressed', String(allOpen));
     });
+
+    // Tema escuro
+    const btnTheme = $('#btnTheme');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Verificar se há uma preferência salva
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+      document.body.setAttribute('data-theme', 'dark');
+      updateThemeButton(true);
+    } else if (currentTheme === 'light') {
+      document.body.setAttribute('data-theme', 'light');
+      updateThemeButton(false);
+    } else if (prefersDarkScheme.matches) {
+      // Se o usuário prefere tema escuro no sistema
+      document.body.setAttribute('data-theme', 'dark');
+      updateThemeButton(true);
+    }
+    
+    btnTheme.addEventListener('click', () => {
+      const isDark = document.body.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        updateThemeButton(false);
+      } else {
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        updateThemeButton(true);
+      }
+    });
+    
+    function updateThemeButton(isDark) {
+      btnTheme.innerHTML = isDark 
+        ? '<svg class="icon" aria-hidden="true"><use href="#i-theme-light"/></svg><span>Claro</span>' 
+        : '<svg class="icon" aria-hidden="true"><use href="#i-theme-dark"/></svg><span>Escuro</span>';
+    }
 
     // Voltar ao topo
     const btnTop = $('#btnTop');
