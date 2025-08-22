@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 600" width="300" height="600">
+  <!-- Fundo do celular -->
+  <rect x="0" y="0" width="300" height="600" rx="20" ry="20" fill="#1a2344"/>
+  
+  <!-- Barra de status -->
+  <rect x="0" y="0" width="300" height="50" fill="#1a2344"/>
+  <text x="30" y="30" font-family="Arial" font-size="16" fill="white">7:55</text>
+  <text x="260" y="30" font-family="Arial" font-size="16" fill="white">15</text>
+  <circle cx="280" cy="25" r="10" fill="#0a7d32"/>
+  
+  <!-- Ícones de status -->
+  <path d="M240,25 L245,20 L250,25 L245,30 Z" fill="white"/>
+  <circle cx="225" cy="25" r="5" fill="white"/>
+  <rect x="210" y="20" width="3" height="10" fill="white"/>
+  <rect x="215" y="18" width="3" height="14" fill="white"/>
+  <rect x="220" y="15" width="3" height="20" fill="white"/>
+  
+  <!-- Cabeçalho -->
+  <rect x="0" y="50" width="300" height="60" fill="#283593"/>
+  <text x="90" y="85" font-family="Arial" font-size="18" font-weight="bold" fill="white">732 | LIVRE</text>
+  <rect x="20" y="70" width="30" height="5" fill="white"/>
+  <rect x="20" y="80" width="30" height="5" fill="white"/>
+  <rect x="20" y="90" width="30" height="5" fill="white"/>
+  <circle cx="270" cy="80" r="20" fill="#0a7d32"/>
+  
+  <!-- Abas -->
+  <rect x="0" y="110" width="150" height="40" fill="#283593"/>
+  <rect x="150" y="110" width="150" height="40" fill="#4051b5"/>
+  <text x="60" y="135" font-family="Arial" font-size="16" fill="white">MAPA</text>
+  <text x="200" y="135" font-family="Arial" font-size="16" fill="white">ÁREAS/PAs</text>
+  
+  <!-- Conteúdo principal - Popup de Status -->
+  <rect x="32" y="372" width="236" height="214" rx="10" ry="10" fill="white"/>
+  <text x="90" y="410" font-family="Arial" font-size="20" font-weight="bold" fill="#333">Alterar Status</text>
+  
+  <!-- Opções de status -->
+  <rect x="62" y="430" width="176" height="40" rx="5" ry="5" fill="#f5f5f5"/>
+  <text x="100" y="455" font-family="Arial" font-size="16" fill="#333">OCUPADO</text>
+  
+  <rect x="62" y="490" width="176" height="40" rx="5" ry="5" fill="#f5f5f5"/>
+  <text x="80" y="515" font-family="Arial" font-size="16" fill="#333">FIM DE JORNADA</text>
+  
+  <text x="200" y="560" font-family="Arial" font-size="16" fill="#4051b5">CANCELAR</text>
+</svg>
